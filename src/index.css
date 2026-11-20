@@ -1,0 +1,444 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: #f3f1ec;
+    color: #1e2028;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+.calm-canvas-bg {
+  background-color: #eaedf7;
+  background-image:
+    radial-gradient(at 8% 14%, rgba(125, 198, 255, 0.45) 0px, transparent 42%),
+    radial-gradient(at 90% 10%, rgba(255, 210, 88, 0.36) 0px, transparent 38%),
+    radial-gradient(at 88% 88%, rgba(255, 165, 203, 0.38) 0px, transparent 44%),
+    radial-gradient(at 12% 86%, rgba(145, 232, 162, 0.34) 0px, transparent 42%);
+}
+
+@keyframes olieFloat {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0);
+  }
+}
+
+@keyframes olieHeadSway {
+  0%, 100% {
+    transform: rotate(-1.6deg) scale(1, 1);
+  }
+  50% {
+    transform: rotate(1.8deg) scale(1.015, 0.99);
+  }
+}
+
+@keyframes olieBreatheChest {
+  0%, 100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.025, 1.03);
+  }
+}
+
+@keyframes olieWave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(-12deg);
+  }
+  65% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes olieClipboardTilt {
+  0%, 100% {
+    transform: rotate(6deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(11deg) translateY(-2px);
+  }
+}
+
+@keyframes olieBlink {
+  0%, 84%, 90%, 94%, 100% {
+    transform: scaleY(1);
+  }
+  87% {
+    transform: scaleY(0.06);
+  }
+  92% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes olieHaloPulse {
+  0%, 100% {
+    transform: scale(0.96);
+    opacity: 0.48;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.88;
+  }
+}
+
+@keyframes olieTwinkle {
+  0%, 100% {
+    transform: scale(0.86) rotate(0deg);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.12) rotate(12deg);
+    opacity: 0.92;
+  }
+}
+
+@keyframes olieHop {
+  0% {
+    transform: translate3d(0, 0px, 0) scale(1, 1);
+  }
+  25% {
+    transform: translate3d(0, 2px, 0) scale(1.05, 0.94);
+  }
+  55% {
+    transform: translate3d(0, -11px, 0) scale(0.97, 1.04);
+  }
+  80% {
+    transform: translate3d(0, 1px, 0) scale(1.02, 0.98);
+  }
+  100% {
+    transform: translate3d(0, 0px, 0) scale(1, 1);
+  }
+}
+
+@keyframes olieCartoonDrinkArm {
+  0%, 15%, 100% {
+    transform: translate3d(0px, 4px, 0) rotate(0deg);
+  }
+  42%, 68% {
+    transform: translate3d(-26px, -28px, 0) rotate(-32deg);
+  }
+}
+
+@keyframes olieHeadDrinkTilt {
+  0%, 18%, 95%, 100% {
+    transform: rotate(0deg);
+  }
+  44%, 66% {
+    transform: rotate(-7deg);
+  }
+}
+
+@keyframes olieRefreshPop {
+  0%, 40%, 100% {
+    transform: translate3d(0, 4px, 0) scale(0.4);
+    opacity: 0;
+  }
+  65%, 82% {
+    transform: translate3d(0, -10px, 0) scale(1.1);
+    opacity: 0.95;
+  }
+}
+
+@keyframes olieShoulderShrugMelt {
+  0%, 100% {
+    transform: translate3d(0, 6px, 0) rotate(0deg);
+  }
+  20%, 30% {
+    transform: translate3d(0, -14px, 0) rotate(-3deg);
+  }
+  58%, 88% {
+    transform: translate3d(0, 10px, 0) rotate(2deg);
+  }
+}
+
+@keyframes olieShoulderBodyMelt {
+  0%, 100% {
+    transform: scaleY(0.99) translate3d(0, 2px, 0);
+  }
+  20%, 30% {
+    transform: scaleY(1.03) translate3d(0, -4px, 0);
+  }
+  58%, 88% {
+    transform: scaleY(0.97) translate3d(0, 4px, 0);
+  }
+}
+
+@keyframes olieExhaleBreath {
+  0%, 30% {
+    transform: translate3d(0, 0, 0) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: translate3d(12px, 4px, 0) scale(1.05);
+    opacity: 0.9;
+  }
+  85%, 100% {
+    transform: translate3d(28px, 10px, 0) scale(1.3);
+    opacity: 0;
+  }
+}
+
+@keyframes olieCloudGlide {
+  0% {
+    transform: translate3d(-16px, 0px, 0);
+  }
+  50% {
+    transform: translate3d(16px, -2px, 0);
+  }
+  100% {
+    transform: translate3d(-16px, 0px, 0);
+  }
+}
+
+@keyframes olieBirdGlide {
+  0% {
+    transform: translate3d(-24px, 4px, 0);
+    opacity: 0;
+  }
+  20%, 80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(42px, -10px, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes olieCurtainSway {
+  0%, 100% {
+    transform: skewX(0deg);
+  }
+  50% {
+    transform: skewX(3.5deg);
+  }
+}
+
+@keyframes olieWindowGaze {
+  0%, 100% {
+    transform: translate3d(-2px, 0px, 0);
+  }
+  50% {
+    transform: translate3d(2px, -1.5px, 0);
+  }
+}
+
+@keyframes olieLetterFly {
+  0% {
+    transform: translate3d(0px, 10px, 0) scale(0.75) rotate(-12deg);
+    opacity: 0;
+  }
+  18% {
+    transform: translate3d(8px, 0px, 0) scale(1) rotate(-8deg);
+    opacity: 1;
+  }
+  75% {
+    transform: translate3d(46px, -36px, 0) scale(0.95) rotate(8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(64px, -48px, 0) scale(0.7) rotate(14deg);
+    opacity: 0;
+  }
+}
+
+@keyframes olieHeartFloat {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) scale(0.96);
+    opacity: 0.78;
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) scale(1.1);
+    opacity: 1;
+  }
+}
+
+.olie-idle-float {
+  animation: olieFloat 5.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+.olie-idle-sway {
+  transform-origin: 105px 148px;
+  animation: olieHeadSway 6.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+}
+
+.olie-idle-breathe {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: olieBreatheChest 5.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-idle-wave {
+  transform-box: fill-box;
+  transform-origin: bottom right;
+  animation: olieWave 4.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-idle-clipboard {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: olieClipboardTilt 5.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-idle-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: olieBlink 5.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-idle-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: olieHaloPulse 5.6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.olie-idle-twinkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: olieTwinkle 4.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.olie-idle-twinkle-delay {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: olieTwinkle 4.2s ease-in-out 1.8s infinite;
+  will-change: transform, opacity;
+}
+
+.olie-excited-hop {
+  animation: olieHop 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.olie-cartoon-drink-arm {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: olieCartoonDrinkArm 4.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-head-drink-tilt {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: olieHeadDrinkTilt 4.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-refresh-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: olieRefreshPop 4.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.olie-shoulder-melt {
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: olieShoulderShrugMelt 5.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-shoulder-body-melt {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: olieShoulderBodyMelt 5.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-exhale-breath {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: olieExhaleBreath 5.8s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+.olie-cloud-glide {
+  animation: olieCloudGlide 9.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-bird-glide {
+  animation: olieBirdGlide 7.5s linear infinite;
+  will-change: transform, opacity;
+}
+
+.olie-curtain-sway {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: olieCurtainSway 6.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-window-gaze {
+  animation: olieWindowGaze 6.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.olie-letter-fly {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: olieLetterFly 4.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.olie-heart-float {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: olieHeartFloat 3.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-floater,
+  .olie-idle-float,
+  .olie-idle-sway,
+  .olie-idle-breathe,
+  .olie-idle-wave,
+  .olie-idle-clipboard,
+  .olie-idle-blink,
+  .olie-idle-halo,
+  .olie-idle-twinkle,
+  .olie-idle-twinkle-delay,
+  .olie-excited-hop,
+  .olie-cartoon-drink-arm,
+  .olie-head-drink-tilt,
+  .olie-refresh-pop,
+  .olie-shoulder-melt,
+  .olie-shoulder-body-melt,
+  .olie-exhale-breath,
+  .olie-cloud-glide,
+  .olie-bird-glide,
+  .olie-curtain-sway,
+  .olie-window-gaze,
+  .olie-letter-fly,
+  .olie-heart-float {
+    animation: none !important;
+    transition: none !important;
+  }
+}
