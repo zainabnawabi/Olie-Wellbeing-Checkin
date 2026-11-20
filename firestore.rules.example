@@ -1,0 +1,124 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global safety net: deny all reads and writes by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Replace with your own verified practitioner email in Firebase Console
+    function isPractitioner() {
+      return isSignedIn() &&
+        request.auth.token.email_verified == true &&
+        (
+          request.auth.token.email == 'practitioner@example.com' ||
+          exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+        );
+    }
+
+    function isValidSeverity(val) {
+      return val is string &&
+        val.size() >= 4 &&
+        val.size() <= 20 &&
+        val in ['Normal', 'Mild', 'Moderate', 'Severe', 'Extremely Severe'];
+    }
+
+    function isValidResponse(data) {
+      return data.keys().hasAll([
+        'participantName',
+        'participantAge',
+        'ambientSound',
+        'depressionRaw',
+        'depressionScore',
+        'depressionSeverity',
+        'anxietyRaw',
+        'anxietyScore',
+        'anxietySeverity',
+        'stressRaw',
+        'stressScore',
+        'stressSeverity',
+        'answers',
+        'createdAt'
+      ]) &&
+      data.keys().hasOnly([
+        'participantName',
+        'participantAge',
+        'ambientSound',
+        'depressionRaw',
+        'depressionScore',
+        'depressionSeverity',
+        'anxietyRaw',
+        'anxietyScore',
+        'anxietySeverity',
+        'stressRaw',
+        'stressScore',
+        'stressSeverity',
+        'answers',
+        'createdAt'
+      ]) &&
+      data.participantName is string &&
+      data.participantName.size() >= 1 &&
+      data.participantName.size() <= 100 &&
+      data.participantAge is int &&
+      data.participantAge >= 10 &&
+      data.participantAge <= 120 &&
+      data.ambientSound is string &&
+      data.ambientSound.size() >= 4 &&
+      data.ambientSound.size() <= 10 &&
+      data.ambientSound in ['rain', 'waves', 'forest', 'none'] &&
+      data.depressionRaw is int &&
+      data.depressionRaw >= 0 &&
+      data.depressionRaw <= 21 &&
+      data.depressionScore is int &&
+      data.depressionScore == data.depressionRaw * 2 &&
+      isValidSeverity(data.depressionSeverity) &&
+      data.anxietyRaw is int &&
+      data.anxietyRaw >= 0 &&
+      data.anxietyRaw <= 21 &&
+      data.anxietyScore is int &&
+      data.anxietyScore == data.anxietyRaw * 2 &&
+      isValidSeverity(data.anxietySeverity) &&
+      data.stressRaw is int &&
+      data.stressRaw >= 0 &&
+      data.stressRaw <= 21 &&
+      data.stressScore is int &&
+      data.stressScore == data.stressRaw * 2 &&
+      isValidSeverity(data.stressSeverity) &&
+      data.answers is list &&
+      data.answers.size() == 21 &&
+      data.answers[0] is int &&
+      data.answers[0] >= 0 &&
+      data.answers[0] <= 3 &&
+      data.answers[20] is int &&
+      data.answers[20] >= 0 &&
+      data.answers[20] <= 3 &&
+      data.createdAt is timestamp &&
+      data.createdAt == request.time;
+    }
+
+    match /responses/{responseId} {
+      allow create: if isValidId(responseId) && isValidResponse(incoming());
+      allow get, delete: if isValidId(responseId) && isPractitioner();
+      allow list: if isPractitioner();
+      allow update: if false;
+    }
+
+    match /admins/{adminId} {
+      allow get: if isSignedIn() && isValidId(adminId) && (request.auth.uid == adminId || isPractitioner());
+      allow list, create, update, delete: if false;
+    }
+  }
+}
